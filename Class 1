@@ -1,0 +1,147 @@
+class Vector {
+private:
+int* elements;
+int size;
+
+public:
+// Конструкторы
+Vector() {
+size = 1;
+elements = new int[size];
+elements[0] = 0;
+}
+
+Vector(int size) {
+this->size = size;
+elements = new int[size];
+for (int i = 0; i < size; i++) {
+elements[i] = i;
+}
+}
+
+Vector(int size, int value) {
+this->size = size;
+elements = new int[size];
+for (int i = 0; i < size; i++) {
+elements[i] = value;
+}
+}
+
+// Деструктор
+~Vector() {
+delete[] elements;
+}
+
+// Функция для установки каждого элемента вектора в определенное значение (по умолчанию - 0)
+void setElements(int value = 0) {
+for (int i = 0; i < size; i++) {
+elements[i] = value;
+}
+}
+
+// Функция, возвращающая определенный элемент вектора по индексу
+int getElement(int index) {
+return elements[index];
+}
+
+// Функция печати вектора
+void printVector() {
+for (int i = 0; i < size; i++) {
+cout << elements[i] << " ";
+}
+cout << endl;
+}
+
+// Функции добавления, умножения и вычитания элементов вектора с целым числом
+void add(int value) {
+for (int i = 0; i < size; i++) {
+elements[i] += value;
+}
+}
+
+void multiply(int value) {
+for (int i = 0; i < size; i++) {
+elements[i] *= value;
+}
+}
+
+void subtract(int value) {
+for (int i = 0; i < size; i++) {
+elements[i] -= value;
+}
+}
+
+// Методы сравнения
+bool greaterThan(Vector otherVector) {
+for (int i = 0; i < size; i++) {
+if (elements[i] <= otherVector.getElement(i)) {
+return false;
+}
+}
+return true;
+}
+
+bool lessThan(Vector otherVector) {
+for (int i = 0; i < size; i++) {
+if (elements[i] >= otherVector.getElement(i)) {
+return false;
+}
+}
+return true;
+}
+
+bool equalTo(Vector otherVector) {
+for (int i = 0; i < size; i++) {
+if (elements[i] != otherVector.getElement(i)) {
+return false;
+}
+}
+return true;
+}
+};
+```
+
+Итак, мы создали класс Vector с указателем на int и реализовали его конструкторы, деструкторы и функции для работы с векторами. Теперь давайте проверим работу этого класса:
+
+```cpp
+int main() {
+Vector vector1; // Создаем вектор с помощью конструктора без параметра
+vector1.printVector(); // Выводим значения вектора на экран (должно быть 0)
+
+Vector vector2(5); // Создаем вектор размером 5 с помощью конструктора с одним параметром
+vector2.printVector(); // Выводим значения вектора на экран (должны быть числа от 0 до 4)
+
+Vector vector3(3, 10); // Создаем вектор размером 3 и инициализируем все значения 10 с помощью конструктора с двумя параметрами
+vector3.printVector(); // Выводим значения вектора на экран (должны быть числа 10, 10, 10)
+
+vector1.add(5); // Добавляем 5 к каждому элементу вектора vector1
+vector1.printVector();
+
+vector2.multiply(3); // Умножаем каждый элемент вектора vector2 на 3
+vector2.printVector();
+
+vector3.subtract(2); // Вычитаем 2 из каждого элемента вектора vector3
+vector3.printVector();
+
+cout << vector2.getElement(2) << endl; // Выводим третий элемент вектора vector2 (должно быть число 6)
+
+if (vector1.greaterThan(vector2)) {
+cout << "Vector1 is greater than vector2" << endl;
+} else {
+cout << "Vector1 is not greater than vector2" << endl;
+}
+
+if (vector2.lessThan(vector3)) {
+cout << "Vector2 is less than vector3" << endl;
+} else {
+cout << "Vector2 is not less than vector3" << endl;
+}
+
+if (vector3.equalTo(vector1)) {
+cout << "Vector3 is equal to vector1" << endl;
+} else {
+cout << "Vector3 is not equal to vector1" << endl;
+}
+
+return 0;
+}
