@@ -1,0 +1,124 @@
+#include "stdafx.h"
+#include <iostream>
+#include <string>
+ 
+class Date 
+{
+public:
+        Date(int d = 0, int m = 0, int y = 0) 
+        {
+                setDate(d, m, y);
+                std::cout<<"Constructor"<<std::endl;
+        }
+ 
+        Date(const Date &date) 
+        {
+                setDate(date.day, date.month, date.year);
+                std::cout<<"Constructor copy"<<std::endl;
+        }
+ 
+        ~Date()
+        {
+            
+        }
+ 
+        int getDay() const 
+        {
+                return day;
+        }
+ 
+        int getMonth() const 
+        {
+                return month;
+        }
+ 
+        int getYear() const 
+        {
+                return year;
+        }
+ 
+        void setDay(int day) 
+        {
+                this->day = day;
+        }
+ 
+        void setMonth(int month) 
+        {
+                this->month = month;
+        }
+ 
+        void setYear(int year) 
+        {
+                this->year = year;
+        }
+ 
+        void setDate(int day, int month, int year) 
+        {
+                if (isValidDate(day, month, year)) 
+                {
+                        setDay(day);
+                        setMonth(month);
+                        setYear(year);
+                }
+                else {
+                        throw std::string("Not valid date");
+                }
+        }
+ 
+        void print() const 
+        {
+                        std::cout << day << '.'
+                                  << month << '.'
+                                  << year << std::endl;
+        }
+ 
+        void print1() const 
+        {
+            
+            //функция печати по шаблону 5 января 1997
+        }
+                        
+ 
+        static bool isValidDate(int day, int month, int year) 
+        {
+                if ((day<1 || day>31) || (month<1 || month>12))
+                {
+                    std::cout<<"Not valid date"<<std::endl;
+                }
+                return true;
+        }
+ 
+        static bool isLeapYear(int year) 
+        {
+               return ((year % 4 == 0 && year% 100 != 0) || year % 400);
+            
+        }
+ 
+        static int dayInMonth(int month) 
+        {
+                  int days[12]={31,28,31,30,31,30,31,31,30,31,30,31};
+                  if(isLeapYear)days[1]=29;
+                  return days[month-1];
+        }
+ 
+private:
+        int day;
+        int month;
+        int year;
+};
+ 
+int main() 
+{
+        Date d1(5, 1, 1997);
+            d1.print();
+ 
+            Date d2 = d1;
+            d2.setDay(6);
+            d2.print();
+        
+ 
+        Date d3(d2);
+            //d3.print2();
+            return 0;
+        
+}
